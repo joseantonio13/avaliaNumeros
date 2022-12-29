@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Analise de números </title>
+</head>
+
+<style>
+    body{
+        background-color: rgba(4, 4, 67, 0.392);
+        padding: 0px;
+        margin: 0;
+    }
+
+    header{
+        color:white;
+        text-transform: uppercase;
+        font-size: 25px;
+        text-align: center;
+    }
+
+    main{
+        text-align: center;
+        font-size: 20px;
+        margin: auto;
+        padding: 30px;
+        background-color: rgb(252, 252, 252);
+        border-radius: 10px;
+        box-shadow: 10px 3px 40px rgba(0, 0, 0, 0.112);
+        box-sizing: border-box;
+       
+    }
+
+    footer{
+        text-align: center; 
+        padding: 6px;
+
+    }
+    #flist{
+        width: 200px;
+    }
+</style>
+
+<body>
+
+    <header>
+        <h1> Analisador de números </h1>
+    </header>
+
+    <main>
+        <div> <h2> Número (entre 1 a 100): </h2>
+           <input type="number" name="num" id="form">
+           <input type="button" value="Adicionar" onclick="adicionar()">
+           <br>
+           <br> <select id="flist" name="flist" id="flist" size="6"></select>
+            <br><br><input type="button" value="finalizar" onclick="finalizar()">
+        </div>
+   
+        <div id="res">
+
+        </div>
+     
+
+       
+    </main>
+
+    <footer>
+        <h3> Feito com carinho. </h3>
+    </footer>
+
+<script>
+
+let num = document.getElementById("form")
+let lista = document.getElementById("flist")
+let res = document.getElementById("res")
+let valores = []
+
+function adicionar(){
+ if(isNumero(num.value) && !inLista(num.value, valores)){
+    valores.push(Number(num.value))
+    let item = document.createElement('option')
+    item.text = `Valor ${num.value} adicionado.`
+    lista.appendChild(item)
+    res.innerHTML = ''
+ } else {
+    window.alert("valor inválido ou já consta.")
+ }
+num.value = ''
+num.focus()
+}
+
+function isNumero(n) {
+    if(Number(n) >= 1 && Number(n) <= 100){
+        return true
+    } else {
+        return false
+    }
+}
+
+function inLista(n, l) {
+ if (l.indexOf(Number(n)) != -1) {
+    return true
+ } else {
+    return false
+ }
+}
+
+function finalizar() {
+    if (valores.length == 0){
+       window.alert(`Adicione valores antes de finalizar por favor.`)
+    } else {
+
+        let tot = valores.length
+        let maior = valores[0]
+        let menor = valores[0]
+        let soma = 0
+        let media = 0
+        for (let pos in valores){
+            soma += valores[pos]
+            if (valores[pos] > maior)
+            maior = valores[pos]
+            if (valores[pos] < menor)
+            menor = valores[pos]
+        }
+        media = soma / tot
+        res.innerHTML = ''
+        res.innerHTML += `<p> Ao todo, temos ${tot} números cadastrados.</p> `
+        res.innerHTML += `<p> O maior valor informado foi ${maior}. </p>`
+        res.innerHTML += `<p> O menor valor informado foi ${menor}. </p>`
+        res.innerHTML += `<p> Somando todos os valores, temos ${soma}.</p>`
+        res.innerHTML += `<p> A média dos valores é ${media}.</p>`
+    }
+}
+
+
+
+
+</script>
+
+</body>
+</html>
